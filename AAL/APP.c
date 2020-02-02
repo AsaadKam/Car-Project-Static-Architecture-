@@ -5,7 +5,7 @@
  *  Author: Native_programmer
   */
 #include"Car_Steering.h"
-
+/*Definition of states*/ 
 #define Car_State_Check_Distance					  0
 #define Car_State_Distance_More_than_50               1
 #define Car_State_Distance_Less_than_50_More_than_30  2
@@ -14,7 +14,7 @@
 
 int main()
 {
-	
+	/*Initialization of variables*/
     uinteg8_t u8_Car_State=Car_State_Check_Distance;
 	uinteg8_t u8_Measured_Distance;
 	/*Car initialization,includes DC motor driver and ultrasonic sensor*/
