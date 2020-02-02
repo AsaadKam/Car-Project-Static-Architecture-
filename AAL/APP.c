@@ -11,7 +11,7 @@
 #define Car_State_Distance_Less_than_50_More_than_30  2
 #define Car_State_Distance_Equal_30                   3
 #define Car_State_Distance_Less_than_30               4
-
+#define True                                          1
 int main()
 {
 	/*Initialization of variables*/
@@ -20,7 +20,7 @@ int main()
 	/*Car initialization,includes DC motor driver and ultrasonic sensor*/
     Car_Init();
 	
-	while(1)
+	while(True)
 	{
 		/*State Machine of car*/
 		switch(u8_Car_State)
