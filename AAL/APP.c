@@ -12,6 +12,7 @@
 #define Car_State_Distance_Equal_30                   3
 #define Car_State_Distance_Less_than_30               4
 #define True                                          1
+
 int main()
 {
 	/*Initialization of variables*/
@@ -45,7 +46,11 @@ int main()
 				else if(u8_Measured_Distance<DISTANCE_30_CM)
 				{
 					u8_Car_State=Car_State_Distance_Less_than_30;
-				}				   			   
+				}		
+				else
+				{
+					/*Do Nothing*/
+				}		   			   
 			}
 			break;
 		   /*Car move forward 100 percentage of speed in case of the distance more than 50*/			
