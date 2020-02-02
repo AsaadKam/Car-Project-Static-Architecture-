@@ -17,7 +17,7 @@ void ISR_DAs()
 }
 void TEMP_SENSOR_INIT(void)
 {
-	uint8_t u8_ADC_value_buffer=0;
+	uinteg8_t u8_ADC_value_buffer=0;
 	ADC_INIT(&gstr_Temp_sensorConfig);
 	ADC_Interrupt_Enable();
 	ADC_Start_Conversion();
@@ -25,7 +25,7 @@ void TEMP_SENSOR_INIT(void)
 	Timer_Start(TIMER1,7812U,NullPointer);
 }
 
-void TEMP_SENSOR_READ(uint32_t*Copy_pu32_Temp_Buffer)
+void TEMP_SENSOR_READ(uinteg32_t*Copy_pu32_Temp_Buffer)
 {
 	ADC_READ(Copy_pu32_Temp_Buffer,NullPointer,NullPointer);
     *Copy_pu32_Temp_Buffer=*Copy_pu32_Temp_Buffer*0.488;

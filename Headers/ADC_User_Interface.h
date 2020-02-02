@@ -20,13 +20,13 @@
 /***********************************************************/
 typedef struct
 {
- int32_t ADC_Channel_Choose;
- int32_t ADC_Reference_Voltage;
- int32_t ADC_Frequency;
- int32_t ADC_Auto_Trig_Enable;
- int32_t ADC_Auto_Trig_Source; 
- int32_t ADC_Left_Right_Adjustment;
- int32_t ADC_Execution_Method;
+ integ32_t ADC_Channel_Choose;
+ integ32_t ADC_Reference_Voltage;
+ integ32_t ADC_Frequency;
+ integ32_t ADC_Auto_Trig_Enable;
+ integ32_t ADC_Auto_Trig_Source; 
+ integ32_t ADC_Left_Right_Adjustment;
+ integ32_t ADC_Execution_Method;
 }gstrADC_Config_t;
 
 /*- ENUMS AND DEFINES LIKE ENUMS ---------------------------*/
@@ -116,7 +116,7 @@ extern  ADC_Error_t ADC_INIT(gstrADC_Config_t*Copy_PntrStr_ADC_Init_Config);
 /* ADC_READ-->> This API for reading ADC register as a range from 0-1024*/
 /************************************************************************/
 
-extern  ADC_Error_t ADC_READ(uint32_t* Copyu32_ADC_Value,PntrToFunc_t Copy_PntrToFunc_Requsted_From_User_Called_In_ADC_ISR,uint8_t* Copy_Pntr_u8_ADC_READ_TIME_EVENT_FLAG);
+extern  ADC_Error_t ADC_READ(uinteg32_t* Copyu32_ADC_Value,PntrToFunc_t Copy_PntrToFunc_Requsted_From_User_Called_In_ADC_ISR,uinteg8_t* Copy_Pntr_u8_ADC_READ_TIME_EVENT_FLAG);
 
 /**ADC API ERRORS**/
 #define ADC_READ_API_NO_ERROR                                       30

@@ -9,6 +9,7 @@
 #include "BitManipulation.h"
 #include "DIO.h"
 #include "Timer.h"
+#include "DEBUG.h"
 /*- LOCAL MACROS ------------------------------------------*/
 
 #define  EnableGeneralInterrupt()      SET_BIT(CPU_FLAG_Register,INT_BIT)
@@ -25,8 +26,8 @@
 
 /*- GLOBAL STATIC VARIABLES -------------------------------*/
 
-static uint8_t sgau8_Interrupt_Mode[NO_OF_CHANNELS]={0},sgau8_TIMERMode[NO_OF_CHANNELS]={0},sgau8_TIMERChannel[NO_OF_CHANNELS]={0},sgau8_TIMERPrescaler[NO_OF_CHANNELS]={0};
-static volatile uint16_t sgu16_TIMER_COUNTER_REG_BUFFER=0;
+static uinteg8_t sgau8_Interrupt_Mode[NO_OF_CHANNELS]={0},sgau8_TIMERMode[NO_OF_CHANNELS]={0},sgau8_TIMERChannel[NO_OF_CHANNELS]={0},sgau8_TIMERPrescaler[NO_OF_CHANNELS]={0};
+static volatile uinteg16_t sgu16_TIMER_COUNTER_REG_BUFFER=0;
 static volatile PntrToFunc_t sgpfun_TIMER0_CMP_ISR_Function=NullPointer,sgpfun_TIMER1_CMPA_ISR_Function=NullPointer,sgpfun_TIMER1_CMPB_ISR_Function=NullPointer,sgpfun_TIMER2_CMP_ISR_Function=NullPointer;
 /*- GLOBAL EXTERN VARIABLES -------------------------------*/
 
@@ -35,12 +36,12 @@ static volatile PntrToFunc_t sgpfun_TIMER0_CMP_ISR_Function=NullPointer,sgpfun_T
 
 /*- APIs IMPLEMENTATION -----------------------------------*/
 	
-uint8_t Timer_Init(gStrTimerConfiguration_t* ps_Copy_Measurement_ECU_TIMER_Init_Config)
+uinteg8_t Timer_Init(gStrTimerConfiguration_t* ps_Copy_Measurement_ECU_TIMER_Init_Config)
 {
 	
 	if(NullPointer!=ps_Copy_Measurement_ECU_TIMER_Init_Config)
 	{
-		
+
 		/*To Check whether the structure values that have been passed is in the scope of configuration nor not*/
 		if(sgau8_TIMERChannel[ps_Copy_Measurement_ECU_TIMER_Init_Config->Timer_Channel]==TIMER_Enable)            return TIMER_ERROR_NOK;	
 		if(ps_Copy_Measurement_ECU_TIMER_Init_Config->Timer_Channel >TIMER2  )                                    return TIMER_ERROR_NOK;	
@@ -63,13 +64,17 @@ uint8_t Timer_Init(gStrTimerConfiguration_t* ps_Copy_Measurement_ECU_TIMER_Init_
 		{
 			case TIMER0:
 			{
-				TIMER0_CNTRL_REG|=TIMER0_CNTRL_REG_CTC_MODE_VALUE;
+
 				/*Set the initial value of Prescaler*/
+				TIMER0_CNTRL_REG|=TIMER0_CNTRL_REG_CTC_MODE_VALUE;
 				if(ps_Copy_Measurement_ECU_TIMER_Init_Config->Timer_Mode ==COUNTER_MODE)
 				{
 					TIMER0_CNTRL_REG  |=ps_Copy_Measurement_ECU_TIMER_Init_Config->Timer_Psc;			
 				}
-
+				else
+				{
+					/*Do Nothing*/
+				}
 			}
 			break;
 			case TIMER1:
@@ -82,7 +87,11 @@ uint8_t Timer_Init(gStrTimerConfiguration_t* ps_Copy_Measurement_ECU_TIMER_Init_
 				if(ps_Copy_Measurement_ECU_TIMER_Init_Config->Timer_Mode ==COUNTER_MODE)
 				{
 					TIMER1_CNTRL_REG_B|=ps_Copy_Measurement_ECU_TIMER_Init_Config->Timer_Psc;
-				}				
+				}	
+				else
+				{
+					/*Do Nothing*/					
+				}			
 
 			}
 			break;
@@ -94,7 +103,11 @@ uint8_t Timer_Init(gStrTimerConfiguration_t* ps_Copy_Measurement_ECU_TIMER_Init_
 				if(ps_Copy_Measurement_ECU_TIMER_Init_Config->Timer_Mode ==COUNTER_MODE)
 				{
 					TIMER2_CNTRL_REG|=ps_Copy_Measurement_ECU_TIMER_Init_Config->Timer_Psc;
-				}		
+				}	
+				else
+				{
+					/*Do Nothing*/					
+				}				
 			}
 			break;
 			default:
@@ -121,11 +134,10 @@ uint8_t Timer_Init(gStrTimerConfiguration_t* ps_Copy_Measurement_ECU_TIMER_Init_
 	return TIMER_ERROR_OK;
 }
 
-uint8_t Timer_Start(uint8_t u8_Copy_TIMER_Start_TIMERChannel,uint32_t u32_Copy_TIMER_Start_tickCounts,PntrToFunc_t PntrToFunc_t_Copy_TIMER_Start_ISR)//with sgau8_Prescaler
+uinteg8_t Timer_Start(uinteg8_t u8_Copy_TIMER_Start_TIMERChannel,uinteg32_t u32_Copy_TIMER_Start_tickCounts,PntrToFunc_t PntrToFunc_t_Copy_TIMER_Start_ISR)//with sgau8_Prescaler
 {
 
-	uint16_t u16_Count_TIMER_Start=0;
-	
+	uinteg16_t u16_Count_TIMER_Start=0;
 	switch(u8_Copy_TIMER_Start_TIMERChannel)
 	{
 		case TIMER0:
@@ -137,7 +149,7 @@ uint8_t Timer_Start(uint8_t u8_Copy_TIMER_Start_TIMERChannel,uint32_t u32_Copy_T
 				if(sgau8_TIMERMode[TIMER0]==TIMER_MODE_MICRO)
 				{ 
 						/************************************************************
-						 * The prescale divide by 8 and  make count =1 and  the 
+						 * The prescaler divide by 8 and  make count =1 and  the 
 						 * counter =255-1 to get overflow every micro
 						 ************************************************************/
 						TIMER0_CNTRL_REG|=F_CPU_CLOCK_8_TIMER_0;	
@@ -240,12 +252,13 @@ uint8_t Timer_Start(uint8_t u8_Copy_TIMER_Start_TIMERChannel,uint32_t u32_Copy_T
 				}
 				else if(sgau8_Interrupt_Mode[TIMER0]==INTERRUPT)
 				{
-					 TIMER_CLR_INT_FLAG(TIMER0_Compare_FLAG_BIT);							 
-					 TIMER0_COMPARE_REG=u32_Copy_TIMER_Start_tickCounts;
-					 /*Enable OverFlow Interrupt for TIMER (0)*/
-					 Timer_0_OCF_INT_EN();			  
-					 /*Let the ISR execute the called back function*/
-					 sgpfun_TIMER0_CMP_ISR_Function=PntrToFunc_t_Copy_TIMER_Start_ISR;						
+					TIMER_CLR_INT_FLAG(TIMER0_Compare_FLAG_BIT);
+				    TIMER0_COMPARE_REG=u32_Copy_TIMER_Start_tickCounts;					 
+					/*Enable OverFlow Interrupt for TIMER (0)*/
+					Timer_0_OCF_INT_EN();
+					/*Let the ISR execute the called back function*/
+					sgpfun_TIMER0_CMP_ISR_Function=PntrToFunc_t_Copy_TIMER_Start_ISR;
+
 				}
 				else
 				{
@@ -360,10 +373,10 @@ uint8_t Timer_Start(uint8_t u8_Copy_TIMER_Start_TIMERChannel,uint32_t u32_Copy_T
 					
 			}
 			/*Check whether it is counter or timer*/
-			else if(sgau8_TIMERMode[TIMER0]==COUNTER_MODE)
+			else if(sgau8_TIMERMode[TIMER1]==COUNTER_MODE)
 			{
 				/*Check whether it is polled or not*/
-				if(sgau8_Interrupt_Mode[TIMER0]==POLLING)
+				if(sgau8_Interrupt_Mode[TIMER1]==POLLING)
 				{ 
                     TIMER_CLR_INT_FLAG(TIMER1_Compare_A_FLAG_BIT);
 				    TIMER1_COMP_REG_A=u32_Copy_TIMER_Start_tickCounts;
@@ -530,7 +543,7 @@ uint8_t Timer_Start(uint8_t u8_Copy_TIMER_Start_TIMERChannel,uint32_t u32_Copy_T
 	return TIMER_ERROR_OK;
 }
 
-uint8_t Timer_Stop(uint8_t u8_Copy_TIMER_Start_TIMERChannel)
+uinteg8_t Timer_Stop(uinteg8_t u8_Copy_TIMER_Start_TIMERChannel)
 { 
 	switch(u8_Copy_TIMER_Start_TIMERChannel)
 	{
@@ -563,23 +576,23 @@ uint8_t Timer_Stop(uint8_t u8_Copy_TIMER_Start_TIMERChannel)
 			
 }
 
-uint8_t Timer_Get_tickCount(uint8_t u8_Copy_TIMER_Start_TIMERChannel, void volatile*Copy_uint8Ptr_TIMERTickTime)
+uinteg8_t Timer_Get_tickCount(uinteg8_t u8_Copy_TIMER_Start_TIMERChannel, void volatile*Copy_uinteg8Ptr_TIMERTickTime)
 {
 	switch(u8_Copy_TIMER_Start_TIMERChannel)
 	{
 		case TIMER0:
 		{
-			Copy_uint8Ptr_TIMERTickTime=&TIMER0_COUNTER_REG;
+			Copy_uinteg8Ptr_TIMERTickTime=&TIMER0_COUNTER_REG;
 		}
 		break;
 		case TIMER1:
 		{
-			Copy_uint8Ptr_TIMERTickTime=&TIMER1_COUNTER_REG;
+			Copy_uinteg8Ptr_TIMERTickTime=&TIMER1_COUNTER_REG;
 		}
 		break;
 		case TIMER2:
 		{
-			Copy_uint8Ptr_TIMERTickTime=&TIMER2_COUNTER_REG;
+			Copy_uinteg8Ptr_TIMERTickTime=&TIMER2_COUNTER_REG;
 		}
 		break;
 		default:
@@ -592,28 +605,28 @@ uint8_t Timer_Get_tickCount(uint8_t u8_Copy_TIMER_Start_TIMERChannel, void volat
 	return TIMER_ERROR_OK;			
 }
 
-uint8_t Timer_Get_FlagStatus(uint8_t u8_Copy_TIMER_Start_TIMERChannel, void volatile*Copy_uint8Ptr_FlagStatus)
+uinteg8_t Timer_Get_FlagStatus(uinteg8_t u8_Copy_TIMER_Start_TIMERChannel, void volatile*Copy_uinteg8Ptr_FlagStatus)
 {
-	static uint8_t OVF_FLAG=0;
+	static uinteg8_t OVF_FLAG=0;
 	
 	switch(u8_Copy_TIMER_Start_TIMERChannel)
 	{
 		case TIMER0:
 		{
 			OVF_FLAG=GET_BIT(TIMER_EVENT_FLAGS_REG,TIMER0_OVF_COUNT_FLAG_BIT);
-			Copy_uint8Ptr_FlagStatus=&OVF_FLAG;
+			Copy_uinteg8Ptr_FlagStatus=&OVF_FLAG;
 		}
 		break;
 		case TIMER1:
 		{
 			OVF_FLAG=GET_BIT(TIMER_EVENT_FLAGS_REG,TIMER1_OVF_COUNT_FLAG_BIT);
-			Copy_uint8Ptr_FlagStatus=&OVF_FLAG;
+			Copy_uinteg8Ptr_FlagStatus=&OVF_FLAG;
 		}
 		break;
 		case TIMER2:
 		{
 			OVF_FLAG=GET_BIT(TIMER_EVENT_FLAGS_REG,TIMER2_OVF_COUNT_FLAG_BIT);
-			Copy_uint8Ptr_FlagStatus=&OVF_FLAG;
+			Copy_uinteg8Ptr_FlagStatus=&OVF_FLAG;
 		}
 		break;
 		default:
@@ -626,7 +639,7 @@ uint8_t Timer_Get_FlagStatus(uint8_t u8_Copy_TIMER_Start_TIMERChannel, void vola
 	return TIMER_ERROR_OK;
 }
 
-uint8_t Timer_Reset(uint8_t u8_Copy_TIMER_Start_TIMERChannel)
+uinteg8_t Timer_Reset(uinteg8_t u8_Copy_TIMER_Start_TIMERChannel)
 {
 	switch(u8_Copy_TIMER_Start_TIMERChannel)
 	{
@@ -655,23 +668,31 @@ uint8_t Timer_Reset(uint8_t u8_Copy_TIMER_Start_TIMERChannel)
 	return TIMER_ERROR_OK;
 }
 
+/*
 Timer_ISR(TIMER0_COMP_VECTOR)
 {
+/ *
+	DIO_Init_Pin(31,1);
+	DIO_toggle_Pin(31);* /
     sgpfun_TIMER0_CMP_ISR_Function();
 }
 
 Timer_ISR(TIMER1_COMPA_VECTOR)
 {
 	sgpfun_TIMER1_CMPA_ISR_Function();
+ 	
 }
 
 Timer_ISR(TIMER1_COMPB_VECTOR)
 {
+
 	sgpfun_TIMER1_CMPB_ISR_Function();
+	
 }
 
 Timer_ISR(TIMER2_COMP_VECTOR)
 {
-	sgpfun_TIMER2_CMP_ISR_Function();
-	TIMER_CLR_INT_FLAG(TIMER2_Compare_FLAG_BIT);	
-}
+
+    sgpfun_TIMER2_CMP_ISR_Function();
+
+}*/

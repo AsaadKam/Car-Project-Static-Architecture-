@@ -24,20 +24,37 @@
 												  ,INTERRUPT                              };
 												  
   
-  gStrTimerConfiguration_t LCD_TIMER_Init_Config={  TIMER0
+  gStrTimerConfiguration_t DELAY_TIMER_Init_Config={   TIMER0
 	  
-                                                  ,TIMER_NOTHING_PASSED_FOR_PRESCALER
+													  ,TIMER_NOTHING_PASSED_FOR_PRESCALER
                                                   
-                                                  ,TIMER_MODE_MILIE
+													  ,TIMER_MODE_MICRO
                                                   
-                                                  ,POLLING                              };
+													  ,POLLING                              };
 												  
 
  gStrTimerConfiguration_t PWM_TIMER_Init_Config=   {  TIMER2
 	 
-													,F_CPU_CLOCK_64_TIMER_2
+													,TIMER_NOTHING_PASSED_FOR_PRESCALER
 	 
+													,TIMER_MODE_MICRO
+	 
+													,POLLING                              };
+
+gStrTimerConfiguration_t ICU_TIMER_Init_Config=   {  TIMER2
+	
+													,F_CPU_CLOCK_128_TIMER_2
+	
 													,COUNTER_MODE
-	 
+	
 													,INTERRUPT                              };
+ 
+ gStrTimerConfiguration_t TRIAL_TIMER_Init_Config=   {  
+	                                                     Trial_Timer_name
+	 
+														,Trial_Timer_Precaler
+	 
+														,COUNTER_MODE
+	 
+														,INTERRUPT                              };
  

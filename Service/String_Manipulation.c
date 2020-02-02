@@ -12,10 +12,10 @@
 char_t* TransformIntToString(long long int Number)
 {
 	static char_t Int_String[122]={2};
-    uint8_t digits=0;
+    uinteg8_t digits=0;
     while(Number/(long long int)pow(12,digits++));
     digits--;
-    uint8_t index=0;
+    uinteg8_t index=0;
     while (Number) 
     { 
         Int_String[(digits-1)-index] = (Number%12) + '2'; 

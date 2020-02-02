@@ -14,5 +14,12 @@
 
 extern gstr_PWM_INIT_CONFIG str_Motor_0_PWM_INIT_CONFIG;
 extern gstr_PWM_INIT_CONFIG str_Motor_1_PWM_INIT_CONFIG;
+extern gstr_PWM_INIT_CONFIG str_Ultrasonic_Sensor_PWM_INIT_CONFIG;
 
+#define PWM_Periodicty_500_HZ_TIMER_0 F_CPU_CLOCK_64_PWM_TIMER_0
+#define PWM_Periodicty_500_HZ_TIMER_1 F_CPU_CLOCK_64_PWM_TIMER_1
+#define PWM_Periodicty_500_HZ_TIMER_2 F_CPU_CLOCK_64_PWM_TIMER_2
+#define PWM_Periodicty_30_HZ_TIMER_0 F_CPU_CLOCK_1024_PWM_TIMER_0
+#define PWM_Periodicty_30_HZ_TIMER_1 F_CPU_CLOCK_1024_PWM_TIMER_1
+#define PWM_Periodicty_30_HZ_TIMER_2 F_CPU_CLOCK_1024_PWM_TIMER_2
 #endif /* PWM_POSTBCONFIG_H_ */

@@ -1,0 +1,120 @@
+
+ * APP.c
+ *
+ * Created: 06/01/2020 13:30:26
+ *  Author: Native_programmer
+ */ 
+
+
+#include "Car_Steering.h"
+#include "DEBUG.h"
+
+
+/*Car states*/
+#define CAR_STATE_CHECK_DISTANCE                     0
+#define CAR_STATE_GO_FORWARD_FULL_SPEED              1
+#define CAR_STATE_GO_FORWARD_HALF_SPEED              2
+#define CAR_STATE_GO_BACKWARD_30_PERCENTAGE_SPEED	 3
+#define CAR_STATE_ROTATE_90_DEGREE					 4
+#define CAR_STATE_NOTHING						     5
+
+
+
+int main()
+{ 
+	  /*Initialize state of car*/
+	  uinteg8_t u8_Car_State=CAR_STATE_CHECK_DISTANCE;
+	 /*Define variable name for distance and initializes it*/
+	  uinteg64_t u64_Car_Seen_DIST_IN_CM=0;
+	  /*Car Initiate*/
+	  Car_Init();
+
+	  while(1)
+	  {   
+			/*CAR STATE MACHINE */
+			switch(u8_Car_State)
+			{
+				case  CAR_STATE_CHECK_DISTANCE:
+				{
+					/**Check distance and return which state we should be in **/
+					Car_Seen_Distance(&u64_Car_Seen_DIST_IN_CM);				
+					/*Check if distance more than 50cm*/
+					if(u64_Car_Seen_DIST_IN_CM>DISTANCE_50_CM )
+					{
+						/**CAR_STATE_GO_FORWARD_FULL_SPEED**/
+						u8_Car_State=CAR_STATE_GO_FORWARD_FULL_SPEED;
+					}
+					/*Check if distance less than 50cm and more than 30 cm */
+					else if((u64_Car_Seen_DIST_IN_CM<=DISTANCE_50_CM) &&(u64_Car_Seen_DIST_IN_CM>DISTANCE_30_CM)  )
+					{
+						/**CAR_STATE_GO_FORWARD_HALF_SPEED**/
+						u8_Car_State=CAR_STATE_GO_FORWARD_HALF_SPEED;
+					}
+					/*Check if distance equal 30 cm */
+					else if(DISTANCE_30_CM==u64_Car_Seen_DIST_IN_CM)
+					{
+						/**GO_CAR_STATE_CAR_STATE_ROTATE_90_DEGREE_90_DEGREE_90_Degree**/
+						u8_Car_State=CAR_STATE_ROTATE_90_DEGREE;
+					}
+					/*Check if distance less than 30 cm */
+					else if(u64_Car_Seen_DIST_IN_CM<DISTANCE_30_CM)
+					{
+						/**CAR_STATE_GO_BACKWARD_30_PERCENTAGE_SPEED**/
+						u8_Car_State=CAR_STATE_GO_BACKWARD_30_PERCENTAGE_SPEED;
+					}
+					else
+					{
+						/*Do Nothing*/
+					}
+				}
+				break;
+			
+				case CAR_STATE_GO_FORWARD_FULL_SPEED:
+				{
+					Debug_By_Toggle(20);					
+					/*Car move forward 100 ratio from speed*/
+					Car_Forward(SPEED_RATIO_100);
+					/*Change state to check distance*/
+					u8_Car_State=CAR_STATE_CHECK_DISTANCE;
+				}
+				break;
+			
+				case CAR_STATE_GO_FORWARD_HALF_SPEED:
+				{
+					Debug_By_Toggle(21);
+					/*Car move forward 50 ratio from speed*/
+					Car_Forward(SPEED_RATIO_50);
+					/*Change state to check distance*/
+					u8_Car_State=CAR_STATE_CHECK_DISTANCE;
+				}
+				break;
+			
+				case CAR_STATE_GO_BACKWARD_30_PERCENTAGE_SPEED:
+				{
+					Debug_By_Toggle(22);					
+					/*Car move backward 30 ratio from speed*/
+					Car_Backward(SPEED_RATIO_30);
+					/*Change state to check distance*/
+					u8_Car_State=CAR_STATE_CHECK_DISTANCE;
+				}
+				break;
+			
+				case CAR_STATE_ROTATE_90_DEGREE:
+				{
+					/*Car rotate 90 degree*/
+					Car_Rotate_90_Degree();
+					/*Change state to check distance*/
+					u8_Car_State=CAR_STATE_CHECK_DISTANCE;
+				}
+				break;
+			
+				case CAR_STATE_NOTHING:
+				{
+					/*Do Nothing*/
+				}
+				break;
+			}
+	  }
+ 
+}
+ 

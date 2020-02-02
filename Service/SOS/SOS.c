@@ -22,10 +22,10 @@
  
 typedef struct 
 {
-	 uint8_t      Periodic_or_not;
-	 uint8_t      Priority;
-	 uint64_t     Periodicity_MS;
-	 uint64_t     Period_Count;
+	 uinteg8_t      Periodic_or_not;
+	 uinteg8_t      Priority;
+	 uinteg64_t     Periodicity_MS;
+	 uinteg64_t     Period_Count;
 	 PntrToFunc_t PntrToFunc;
 	 
 }SOS_Node_t;
@@ -37,8 +37,8 @@ static void SOS_Function_ISR(void);
 /*- GLOBAL STATIC VARIABLES -------------------------------*/
 
 static  SOS_Node_t sga_SOS_Events[SOS_Events]={0};/**Array of OS tasks**/
-static  uint64_t sgu16_SOS_index=0;/****Index for above array****/
-static  volatile uint64_t sgu64_SOS_Timer_ISR_Count=0;/***Counter of SOS milisecond events **/
+static  uinteg64_t sgu16_SOS_index=0;/****Index for above array****/
+static  volatile uinteg64_t sgu64_SOS_Timer_ISR_Count=0;/***Counter of SOS milisecond events **/
 
 /*- GLOBAL EXTERN VARIABLES -------------------------------*/
 /*- LOCAL FUNCTIONS IMPLEMENTATION ------------------------*/
@@ -72,7 +72,7 @@ SOS_Error_t SOS_Init()
 }
 
 /***Creat SOS tasks by By initalize array of task of SOS ****/ 
-extern SOS_Error_t SOS_Create_Task(PntrToFunc_t PntrToFunc_Copy_SOS_Start,uint16_t u16_Copy_Periodicity_MS_SOS_Start,uint16_t u16_Copy_Periodic_or_not_SOS_Start,uint16_t u16_Copy_SOS_TASK_Priority)
+extern SOS_Error_t SOS_Create_Task(PntrToFunc_t PntrToFunc_Copy_SOS_Start,uinteg16_t u16_Copy_Periodicity_MS_SOS_Start,uinteg16_t u16_Copy_Periodic_or_not_SOS_Start,uinteg16_t u16_Copy_SOS_TASK_Priority)
 {
     SOS_Error_t SOS_Start_Error= SOS_Error_OK;
 	
@@ -122,9 +122,9 @@ extern SOS_Error_t SOS_Create_Task(PntrToFunc_t PntrToFunc_Copy_SOS_Start,uint16
 void SOS_Dispatch(void)
 {
 	
-    uint8_t u8_1st_Loop_Dispatch_Flag=1,u8_Dispatch_all_at_same_time_at_the_start=1;
-	uint64_t u64_Dispatch_Func_Count=0;
-    uint64_t u64_SOS_COUNT=0U;
+    uinteg8_t u8_1st_Loop_Dispatch_Flag=1,u8_Dispatch_all_at_same_time_at_the_start=1;
+	uinteg64_t u64_Dispatch_Func_Count=0;
+    uinteg64_t u64_SOS_COUNT=0U;
 	while(1)
 	{ 
 		/*
@@ -134,9 +134,9 @@ void SOS_Dispatch(void)
 		if((u8_1st_Loop_Dispatch_Flag==1)&&(sgu16_SOS_index!=0))   
 		{
 			/**Use bubble sorting for arrangeing prioirty of dispatcher**/
-		 	for(int8_t s8_iteration=0; s8_iteration<sgu16_SOS_index;s8_iteration++)
+		 	for(integ8_t s8_iteration=0; s8_iteration<sgu16_SOS_index;s8_iteration++)
 			{ 
-				for(int8_t s8_i=sgu16_SOS_index-1;s8_i>s8_iteration;s8_i--)
+				for(integ8_t s8_i=sgu16_SOS_index-1;s8_i>s8_iteration;s8_i--)
 				{
 					SOS_Node_t SOS_Node_t_Buffer;
 					if(sga_SOS_Events[s8_i].Priority<sga_SOS_Events[s8_i-1].Priority)  
@@ -158,7 +158,7 @@ void SOS_Dispatch(void)
 
 			if(u8_Dispatch_all_at_same_time_at_the_start==1)
 			{
-				for(uint64_t u64_i=0;u64_i<sgu16_SOS_index;u64_i++)
+				for(uinteg64_t u64_i=0;u64_i<sgu16_SOS_index;u64_i++)
 				{
 					sga_SOS_Events[u64_i].PntrToFunc();
 				}
@@ -166,7 +166,7 @@ void SOS_Dispatch(void)
 			}
 			u64_SOS_COUNT=sgu64_SOS_Timer_ISR_Count;
 			/*Looping to execute the function which it's time comes(Brain of SOS)*/	
-			for(uint64_t u64_i=0;u64_i<sgu16_SOS_index;u64_i++)
+			for(uinteg64_t u64_i=0;u64_i<sgu16_SOS_index;u64_i++)
 			{ 
 				u64_Dispatch_Func_Count=((sga_SOS_Events[u64_i].Period_Count)+1)*sga_SOS_Events[u64_i].Periodicity_MS;
 				
@@ -210,7 +210,7 @@ SOS_Error_t SOS_Stop(PntrToFunc_t PntrToFunc_Copy_SOS_Start)
 	else
 	{
         /**Loop TO find the function that needed to be stopped**/
- 		for(uint8_t u8_SOS_Stop_Index=0;u8_SOS_Stop_Index<sgu16_SOS_index;u8_SOS_Stop_Index++)
+ 		for(uinteg8_t u8_SOS_Stop_Index=0;u8_SOS_Stop_Index<sgu16_SOS_index;u8_SOS_Stop_Index++)
 		{
 			/**If we find the function that needed to be removed**/
 			if(sga_SOS_Events[u8_SOS_Stop_Index].PntrToFunc==PntrToFunc_Copy_SOS_Start) 

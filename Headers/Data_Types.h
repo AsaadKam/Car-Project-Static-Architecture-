@@ -9,15 +9,17 @@
 #define DATA_tYPES_H_
 
 
-typedef   char                 char_t;
-typedef   unsigned char       uint8_t;
-typedef   signed char          int8_t;
-typedef   unsigned short int uint16_t;
-typedef   signed short int    int16_t;
-typedef   unsigned int       uint32_t;
-typedef   signed int          int32_t;
-typedef   unsigned long      uint64_t;
-typedef   signed long         int64_t;
+
+
+typedef   char					 char_t;
+typedef   unsigned char			uinteg8_t;
+typedef   signed char          integ8_t;
+typedef   unsigned short int uinteg16_t;
+typedef   signed short int    integ16_t;
+typedef   unsigned int       uinteg32_t;
+typedef   signed int          integ32_t;
+typedef   unsigned long      uinteg64_t;
+typedef   signed long         integ64_t;
 typedef   float             float32_t;
 typedef   double            float64_t;
 typedef   long double      float128_t;

@@ -12,7 +12,7 @@
 #define SET_PORT(REG)	(PortREG|=0xff)
 #define SET_PORT_WITH_VALUE(REG,VALUE) (REG|=VALUE )
 #define RESET_PORT_WITH_VALUE(REG,VALUE) (REG&=~VALUE)
-#define CLR_PORT(REG)	(REG&=(0x00))
+#define CLR_PORT(REG)	(REG=(0x00))
 #define SET_BIT(REG,sgu16_index) (REG|=(1<<sgu16_index))
 #define CLR_BIT(REG,sgu16_index) (REG&=(~(1<<sgu16_index)))
 /*  

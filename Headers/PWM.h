@@ -10,8 +10,7 @@
 #define PWM_H_
 
 #include "PWM_User_Interface.h"
-
-
+#include "PWM_PostBConfig.h"
 
 
 #endif /* PWM_H_ */

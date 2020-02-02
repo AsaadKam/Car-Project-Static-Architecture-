@@ -12,11 +12,11 @@
 
 typedef struct
 {
-	uint8_t u8_PWM_Execution_Method;/*Software*/ /*Hardware*/
-	uint8_t u8_PWM_Mode;/*Phase correct*/ /*Fast PWM*/
-	uint8_t u8_PWM_Timer_Type;/*Timer(0->2)*/ /*Init and start Timer with the type*//*function will be called back to the timer type*/
-	uint8_t u8_PWM_Timer_Prescaler;/*Prescaler*//*Init and start Timer with the precaler*/
-	uint8_t u8_PWM_Timer_Count;/*Count*//*Init and start Timer with the count*/
+	uinteg8_t u8_PWM_Execution_Method;/*Software*/ /*Hardware*/
+	uinteg8_t u8_PWM_Mode;/*Phase correct*/ /*Fast PWM*/
+	uinteg8_t u8_PWM_Timer_Type;/*Timer(0->2)*/ /*Init and start Timer with the type*//*function will be called back to the timer type*/
+	uinteg8_t u8_PWM_Timer_Preiodicity;/*Prescaler*//*Init and start Timer with the precaler*/
+	uinteg8_t u8_PWM_PIN;
 	/*T=( (Count*Prescaler)/8000000(FREQY. OF CPU)  )=(Period/510)	*/	
 }gstr_PWM_INIT_CONFIG;
 	
@@ -66,17 +66,17 @@ typedef struct
 /**Return PWM_ERROR_t-> Error to PWM_INIT as defined in PWM_Designer.h **/
          /**Passing pointer to configuration structure**/ 
 
-PWM_ERROR_t PWM_INIT(gstr_PWM_INIT_CONFIG* pstr_PWM_INIT_CONFIG);
+extern PWM_ERROR_t PWM_INIT(gstr_PWM_INIT_CONFIG* pstr_PWM_INIT_CONFIG);
 
 /************************************************************************/
 /*     (PWM_Start)--->To start the PWM by configuration structure       */
 /************************************************************************/
 /**Return PWM_ERROR_t-> Error to PWM_Start as defined in PWM_Designer.h **/
-/**Passing uint8_t type u8_TIMER_USED      as an example PWM_TIMER0     **/
-/**Passing uint8_t type u8_PWM_Pin         as an example [0,1,2,3,..,31]**/	
-/**Passing uint8_t type u8_PWM_Duty_Cycle  as an example [0-100]        **/	 
+/**Passing uinteg8_t type u8_TIMER_USED      as an example PWM_TIMER0     **/
+/**Passing uinteg8_t type u8_PWM_Pin         as an example [0,1,2,3,..,31]**/	
+/**Passing uinteg8_t type u8_PWM_Duty_Cycle  as an example [0-100]        **/	 
 
-PWM_ERROR_t PWM_Start(uint8_t u8_TIMER_USED,uint8_t u8_PWM_Pin,uint8_t u8_PWM_Duty_Cycle);
+extern PWM_ERROR_t PWM_Start(uinteg8_t u8_TIMER_Used,uinteg8_t Copy_u8_PWM_Duty_Cycle);
 
 
 #endif /* PWM_USER_INTERFACE_H_ */

@@ -7,7 +7,7 @@
 
 #include "Seven_Segment.h"
 
-uint8_t Seven_Segment_Init(void )
+uinteg8_t Seven_Segment_Init(void )
 {
 	SET_LOWER_NIBBLE(SEG_DIRECTION_REG);
 	SET_BIT(SEG_DIRECTION_REG_ENABLE,SEG_1_ENABLE);
@@ -15,7 +15,7 @@ uint8_t Seven_Segment_Init(void )
 	
 	return 0;
 }	
-uint8_t Seven_Segment_Write(char_t Data)
+uinteg8_t Seven_Segment_Write(char_t Data)
 {
     SEG_DATA_REG=Data;	
 	return 0;

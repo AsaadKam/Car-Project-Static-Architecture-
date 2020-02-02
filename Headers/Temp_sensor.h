@@ -13,7 +13,7 @@
 
 void TEMP_SENSOR_INIT(void);
 
-void TEMP_SENSOR_READ(uint32_t*Copy_pu32_Temp_Buffer);
+void TEMP_SENSOR_READ(uinteg32_t*Copy_pu32_Temp_Buffer);
 
 
 #endif /* TEMP_SENSOR_H_ */

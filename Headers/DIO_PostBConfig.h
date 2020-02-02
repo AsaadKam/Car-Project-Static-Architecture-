@@ -13,8 +13,8 @@
 /* _________________DIO Data type for configuration_______________________*/
 typedef struct
 {
-	uint8_t Pin_Number;
-	uint8_t Pin_Direction;	
+	uinteg8_t Pin_Number;
+	uinteg8_t Pin_Direction;	
 }gstrDioConfig_t;
 /* _________________DIO PINS_______________________*/
 

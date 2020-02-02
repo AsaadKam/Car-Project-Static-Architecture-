@@ -11,7 +11,7 @@
 
 #include "Timer.h"
 
-typedef uint8_t PWM_ERROR_t;
+typedef uinteg8_t PWM_ERROR_t;
 
 /*ERRORS Defines*/
 #define PWM_INIT_NO_ERROR           0

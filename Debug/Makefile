@@ -35,8 +35,9 @@ LINKER_SCRIPT_DEP:=
 SUBDIRS :=  \
 ../AAL \
 ../ECUAL/ICU \
-../ECUAL/PWM \
-../HAL/DC_Motor \
+../ECUAL/DEBUG \
+../ECUAL/PWM/ \
+../HAL/DC_Motor_Driver \
 ../HAL/LCD \
 ../HAL/Seven_Segment \
 ../HAL/Temp_Sensor \
@@ -48,6 +49,7 @@ SUBDIRS :=  \
 ../Headers \
 ../MCAL/ADC \
 ../MCAL/DIO \
+../MCAL/EXT_INT/ \
 ../MCAL/Timer \
 ../Service \
 ../Service/SOS
@@ -56,20 +58,27 @@ SUBDIRS :=  \
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
 ../AAL/APP.c \
+../AAL/Car_Steering.c \
+../ECUAL/DEBUG/DEBUG.c \
 ../ECUAL/ICU/ICU.c \
 ../ECUAL/ICU/ICU_PostBConfig.c \
 ../ECUAL/PWM/PWM.c \
 ../ECUAL/PWM/PWM_PostBConfig.c \
+../HAL/DC_Motor_Driver/DC_Motor_Driver.c \
+../HAL/DC_Motor_Driver/DC_Motor_Driver_PostBConfig.c \
 ../HAL/LCD/LCD.c \
 ../HAL/LCD/LCD_PostBConfig.c \
 ../HAL/Seven_Segment/Seven_Segment.c \
 ../HAL/Seven_Segment/Seven_Segment_PostBConfig.c \
 ../HAL/Temp_Sensor/Temp_sensor.c \
 ../HAL/Temp_Sensor/Temp_sensor_PostBConfig.c \
+../HAL/Ultasonic\ Sensor/Ultrasonic.c \
 ../MCAL/ADC/ADC.c \
 ../MCAL/ADC/ADC_PostBConfig.c \
 ../MCAL/DIO/DIO.c \
 ../MCAL/DIO/DIO_PostBConfig.c \
+../MCAL/EXT_INT/EXT_INT.c \
+../MCAL/EXT_INT/EXT_INT_PostBConfig.c \
 ../MCAL/Timer/Timer.c \
 ../MCAL/Timer/Timer_PostBConfig.c \
 ../Service/SOS/SOS.c \
@@ -85,20 +94,27 @@ ASM_SRCS +=
 
 OBJS +=  \
 AAL/APP.o \
+AAL/Car_Steering.o \
+ECUAL/DEBUG/DEBUG.o \
 ECUAL/ICU/ICU.o \
 ECUAL/ICU/ICU_PostBConfig.o \
 ECUAL/PWM/PWM.o \
 ECUAL/PWM/PWM_PostBConfig.o \
+HAL/DC_Motor_Driver/DC_Motor_Driver.o \
+HAL/DC_Motor_Driver/DC_Motor_Driver_PostBConfig.o \
 HAL/LCD/LCD.o \
 HAL/LCD/LCD_PostBConfig.o \
 HAL/Seven_Segment/Seven_Segment.o \
 HAL/Seven_Segment/Seven_Segment_PostBConfig.o \
 HAL/Temp_Sensor/Temp_sensor.o \
 HAL/Temp_Sensor/Temp_sensor_PostBConfig.o \
+HAL/Ultasonic\ Sensor/Ultrasonic.o \
 MCAL/ADC/ADC.o \
 MCAL/ADC/ADC_PostBConfig.o \
 MCAL/DIO/DIO.o \
 MCAL/DIO/DIO_PostBConfig.o \
+MCAL/EXT_INT/EXT_INT.o \
+MCAL/EXT_INT/EXT_INT_PostBConfig.o \
 MCAL/Timer/Timer.o \
 MCAL/Timer/Timer_PostBConfig.o \
 Service/SOS/SOS.o \
@@ -107,20 +123,27 @@ Service/String_Manipulation.o
 
 OBJS_AS_ARGS +=  \
 AAL/APP.o \
+AAL/Car_Steering.o \
+ECUAL/DEBUG/DEBUG.o \
 ECUAL/ICU/ICU.o \
 ECUAL/ICU/ICU_PostBConfig.o \
 ECUAL/PWM/PWM.o \
 ECUAL/PWM/PWM_PostBConfig.o \
+HAL/DC_Motor_Driver/DC_Motor_Driver.o \
+HAL/DC_Motor_Driver/DC_Motor_Driver_PostBConfig.o \
 HAL/LCD/LCD.o \
 HAL/LCD/LCD_PostBConfig.o \
 HAL/Seven_Segment/Seven_Segment.o \
 HAL/Seven_Segment/Seven_Segment_PostBConfig.o \
 HAL/Temp_Sensor/Temp_sensor.o \
 HAL/Temp_Sensor/Temp_sensor_PostBConfig.o \
+"HAL/Ultasonic Sensor/Ultrasonic.o" \
 MCAL/ADC/ADC.o \
 MCAL/ADC/ADC_PostBConfig.o \
 MCAL/DIO/DIO.o \
 MCAL/DIO/DIO_PostBConfig.o \
+MCAL/EXT_INT/EXT_INT.o \
+MCAL/EXT_INT/EXT_INT_PostBConfig.o \
 MCAL/Timer/Timer.o \
 MCAL/Timer/Timer_PostBConfig.o \
 Service/SOS/SOS.o \
@@ -129,20 +152,27 @@ Service/String_Manipulation.o
 
 C_DEPS +=  \
 AAL/APP.d \
+AAL/Car_Steering.d \
+ECUAL/DEBUG/DEBUG.d \
 ECUAL/ICU/ICU.d \
 ECUAL/ICU/ICU_PostBConfig.d \
 ECUAL/PWM/PWM.d \
 ECUAL/PWM/PWM_PostBConfig.d \
+HAL/DC_Motor_Driver/DC_Motor_Driver.d \
+HAL/DC_Motor_Driver/DC_Motor_Driver_PostBConfig.d \
 HAL/LCD/LCD.d \
 HAL/LCD/LCD_PostBConfig.d \
 HAL/Seven_Segment/Seven_Segment.d \
 HAL/Seven_Segment/Seven_Segment_PostBConfig.d \
 HAL/Temp_Sensor/Temp_sensor.d \
 HAL/Temp_Sensor/Temp_sensor_PostBConfig.d \
+HAL/Ultasonic\ Sensor/Ultrasonic.d \
 MCAL/ADC/ADC.d \
 MCAL/ADC/ADC_PostBConfig.d \
 MCAL/DIO/DIO.d \
 MCAL/DIO/DIO_PostBConfig.d \
+MCAL/EXT_INT/EXT_INT.d \
+MCAL/EXT_INT/EXT_INT_PostBConfig.d \
 MCAL/Timer/Timer.d \
 MCAL/Timer/Timer_PostBConfig.d \
 Service/SOS/SOS.d \
@@ -151,20 +181,27 @@ Service/String_Manipulation.d
 
 C_DEPS_AS_ARGS +=  \
 AAL/APP.d \
+AAL/Car_Steering.d \
+ECUAL/DEBUG/DEBUG.d \
 ECUAL/ICU/ICU.d \
 ECUAL/ICU/ICU_PostBConfig.d \
 ECUAL/PWM/PWM.d \
 ECUAL/PWM/PWM_PostBConfig.d \
+HAL/DC_Motor_Driver/DC_Motor_Driver.d \
+HAL/DC_Motor_Driver/DC_Motor_Driver_PostBConfig.d \
 HAL/LCD/LCD.d \
 HAL/LCD/LCD_PostBConfig.d \
 HAL/Seven_Segment/Seven_Segment.d \
 HAL/Seven_Segment/Seven_Segment_PostBConfig.d \
 HAL/Temp_Sensor/Temp_sensor.d \
 HAL/Temp_Sensor/Temp_sensor_PostBConfig.d \
+"HAL/Ultasonic Sensor/Ultrasonic.d" \
 MCAL/ADC/ADC.d \
 MCAL/ADC/ADC_PostBConfig.d \
 MCAL/DIO/DIO.d \
 MCAL/DIO/DIO_PostBConfig.d \
+MCAL/EXT_INT/EXT_INT.d \
+MCAL/EXT_INT/EXT_INT_PostBConfig.d \
 MCAL/Timer/Timer.d \
 MCAL/Timer/Timer_PostBConfig.d \
 Service/SOS/SOS.d \
@@ -186,6 +223,20 @@ LINKER_SCRIPT_DEP+=
 
 # AVR32/GNU C Compiler
 AAL/APP.o: ../AAL/APP.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"../Headers"  -O3 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+AAL/Car_Steering.o: ../AAL/Car_Steering.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"../Headers"  -O3 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+ECUAL/DEBUG/DEBUG.o: ../ECUAL/DEBUG/DEBUG.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"../Headers"  -O3 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
@@ -214,6 +265,20 @@ ECUAL/PWM/PWM.o: ../ECUAL/PWM/PWM.c
 	
 
 ECUAL/PWM/PWM_PostBConfig.o: ../ECUAL/PWM/PWM_PostBConfig.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"../Headers"  -O3 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+HAL/DC_Motor_Driver/DC_Motor_Driver.o: ../HAL/DC_Motor_Driver/DC_Motor_Driver.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"../Headers"  -O3 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+HAL/DC_Motor_Driver/DC_Motor_Driver_PostBConfig.o: ../HAL/DC_Motor_Driver/DC_Motor_Driver_PostBConfig.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"../Headers"  -O3 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
@@ -262,6 +327,13 @@ HAL/Temp_Sensor/Temp_sensor_PostBConfig.o: ../HAL/Temp_Sensor/Temp_sensor_PostBC
 	@echo Finished building: $<
 	
 
+HAL/Ultasonic\ Sensor/Ultrasonic.o: ../HAL/Ultasonic\ Sensor/Ultrasonic.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"../Headers"  -O3 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
 MCAL/ADC/ADC.o: ../MCAL/ADC/ADC.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
@@ -284,6 +356,20 @@ MCAL/DIO/DIO.o: ../MCAL/DIO/DIO.c
 	
 
 MCAL/DIO/DIO_PostBConfig.o: ../MCAL/DIO/DIO_PostBConfig.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"../Headers"  -O3 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+MCAL/EXT_INT/EXT_INT.o: ../MCAL/EXT_INT/EXT_INT.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"../Headers"  -O3 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+MCAL/EXT_INT/EXT_INT_PostBConfig.o: ../MCAL/EXT_INT/EXT_INT_PostBConfig.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"../Headers"  -O3 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

@@ -11,3 +11,8 @@ gstr_LCD_Config_t gstr_Temprature_Sensor_LCD ={  LCD_Execution_Timer_Driven_Enab
 												,LCD_4BIT_COMM
 												,LCD_Generate_Cursor_Enable
 											  };
+											  
+gstr_LCD_Config_t gstr_CAR_LCD_CONFIG        ={  LCD_Execution_Delay_Enable
+												,LCD_4BIT_COMM
+												,LCD_Generate_Cursor_Enable
+												};

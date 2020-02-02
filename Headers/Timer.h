@@ -26,10 +26,10 @@
 
 typedef struct
 {
-  uint8_t Timer_Channel;  /*Timer Channel (TIMER0 or Timer1 or Timer2)*/
-  uint8_t Timer_Psc;      /*Timer sgau8_Prescaler Based on DataSheet No sgau8_Prescaler or /8 or /64 or .....*/
-  uint8_t Timer_Mode;     /*Timer Mode Timer or Counter*/
-  uint8_t Interrupt_Mode; /*Timer Overflow Mode Interrupt or polling*/
+  uinteg8_t Timer_Channel;  /*Timer Channel (TIMER0 or Timer1 or Timer2)*/
+  uinteg8_t Timer_Psc;      /*Timer sgau8_Prescaler Based on DataSheet No sgau8_Prescaler or /8 or /64 or .....*/
+  uinteg8_t Timer_Mode;     /*Timer Mode Timer or Counter*/
+  uinteg8_t Interrupt_Mode; /*Timer Overflow Mode Interrupt or polling*/
   
 }gStrTimerConfiguration_t;
 
@@ -47,6 +47,7 @@ typedef struct
 #define TIMER1_COMPA_VECTOR  	__vector_7
 #define TIMER1_COMPB_VECTOR 	__vector_8
 #define TIMER2_COMP_VECTOR      __vector_4
+#define TIMER2_OVF			    __vector_5
 
 /*-  Defination of ISR -------------------------------------------*/
 
@@ -79,7 +80,7 @@ void N (void)
 
 #define TIMER2_COUNTER_REG                   TCNT2
 #define TIMER2_CNTRL_REG                     TCCR2
-#define TIMER2_COMPARE_REG              OCR2
+#define TIMER2_COMPARE_REG                   OCR2
 #define TIMER2_CNTRL_REG_CTC_MODE_VALUE      0b00001000U
 #define TIMER_EVENT_FLAGS_REG                TIFR
 #define TIMER0_OVF_COUNT_FLAG_BIT            TOV0
@@ -191,7 +192,7 @@ void N (void)
  * Input     : Timer_Configuration_S* ps_Copy_Measurement_ECU_TIMER_Init_Config (Struct contain : Timer Channel, sgau8_Prescaler, Timer mode , Mode as described in Struct)
  * Output    : Error Checking
  *_______________________________________________________________________________________________________________________________*/
-extern uint8_t  Timer_Init(gStrTimerConfiguration_t* ps_Copy_Measurement_ECU_TIMER_Init_Config);
+extern uinteg8_t  Timer_Init(gStrTimerConfiguration_t* ps_Copy_Measurement_ECU_TIMER_Init_Config);
 /*_______________________________________________________________________________________________________________________________*/
 
 
@@ -200,7 +201,7 @@ extern uint8_t  Timer_Init(gStrTimerConfiguration_t* ps_Copy_Measurement_ECU_TIM
  * Input     :  Timer Channel(Timer Channel (TIMER0 or Timer1 or Timer2), Tick Counting (Counts given by user)
  * Output    : Error Checking
  *_______________________________________________________________________________________________________________________________*/
-extern uint8_t Timer_Start(uint8_t u8_Copy_TIMER_Start_TIMERChannel,uint32_t u32_Copy_TIMER_Start_tickCounts,PntrToFunc_t PntrToFunc_t_Copy_TIMER_Start_ISR);
+extern uinteg8_t Timer_Start(uinteg8_t u8_Copy_TIMER_Start_TIMERChannel,uinteg32_t u32_Copy_TIMER_Start_tickCounts,PntrToFunc_t PntrToFunc_t_Copy_TIMER_Start_ISR);
 /*_______________________________________________________________________________________________________________________________*/
 
 
@@ -209,7 +210,7 @@ extern uint8_t Timer_Start(uint8_t u8_Copy_TIMER_Start_TIMERChannel,uint32_t u32
  * Input     :  Timer Channel(Timer Channel (TIMER0 or Timer1 or Timer2)
  * Output    : Error Checking
  *_______________________________________________________________________________________________________________________________*/
-extern uint8_t  Timer_Stop(uint8_t u8_Copy_TIMER_Start_TIMERChannel);
+extern uinteg8_t  Timer_Stop(uinteg8_t u8_Copy_TIMER_Start_TIMERChannel);
 /*_______________________________________________________________________________________________________________________________*/
 
 /*_______________________________________________________________________________________________________________________________*/
@@ -217,7 +218,7 @@ extern uint8_t  Timer_Stop(uint8_t u8_Copy_TIMER_Start_TIMERChannel);
  * Input     :  Timer Channel(Timer Channel (TIMER0 or Timer1 or Timer2)
  * Output    : Error Checking
  *_______________________________________________________________________________________________________________________________*/
-extern uint8_t Timer_Reset(uint8_t u8_Copy_TIMER_Start_TIMERChannel);
+extern uinteg8_t Timer_Reset(uinteg8_t u8_Copy_TIMER_Start_TIMERChannel);
 /*_______________________________________________________________________________________________________________________________*/
 
 /*_______________________________________________________________________________________________________________________________*/
@@ -225,7 +226,7 @@ extern uint8_t Timer_Reset(uint8_t u8_Copy_TIMER_Start_TIMERChannel);
  * Input     : Timer Channel(Timer Channel (TIMER0 or Timer1 or Timer2), *Timer_time (Pointer to return Value)
  * Output    : Error Checking
  *_______________________________________________________________________________________________________________________________*/
-extern uint8_t Timer_Get_tickTime(uint8_t u8_Copy_TIMER_Start_TIMERChannel, void volatile*Copy_uint8Ptr_TIMERTickTime);
+extern uinteg8_t Timer_Get_tickTime(uinteg8_t u8_Copy_TIMER_Start_TIMERChannel, void volatile*Copy_uinteg8Ptr_TIMERTickTime);
 /*_______________________________________________________________________________________________________________________________*/
 
 /*_______________________________________________________________________________________________________________________________*/
@@ -233,7 +234,7 @@ extern uint8_t Timer_Get_tickTime(uint8_t u8_Copy_TIMER_Start_TIMERChannel, void
  * Input     : Timer Channel(Timer Channel (TIMER0 or Timer1 or Timer2), *FlagStatus (Pointer to Flag)
  * Output    : Error Checking
  *_______________________________________________________________________________________________________________________________*/
-extern uint8_t Timer_Get_FlagStatus(uint8_t u8_Copy_TIMER_Start_TIMERChannel, void volatile *Copy_uint8Ptr_FlagStatus);
+extern uinteg8_t Timer_Get_FlagStatus(uinteg8_t u8_Copy_TIMER_Start_TIMERChannel, void volatile *Copy_uinteg8Ptr_FlagStatus);
 /*_______________________________________________________________________________________________________________________________*/
 
 

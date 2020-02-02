@@ -7,7 +7,7 @@
 #include "DIO.h"
 
 
-uint8_t DIO_Init_PORT(uint8_t Port_Name,uint8_t direction)
+uinteg8_t DIO_Init_PORT(uinteg8_t Port_Name,uinteg8_t direction)
 {
 	
 	
@@ -45,7 +45,7 @@ uint8_t DIO_Init_PORT(uint8_t Port_Name,uint8_t direction)
     }
 	return DIO_ERROR_OK;
 }
-uint8_t DIO_Init_Nibble(uint8_t por,uint8_t nibble,uint8_t direction)
+uinteg8_t DIO_Init_Nibble(uinteg8_t por,uinteg8_t nibble,uinteg8_t direction)
 {
 	switch(por)
 	{
@@ -221,9 +221,9 @@ uint8_t DIO_Init_Nibble(uint8_t por,uint8_t nibble,uint8_t direction)
 }
 return DIO_ERROR_OK;
 }
-uint8_t DIO_Init_Pin(uint8_t pin, uint8_t direction)
+uinteg8_t DIO_Init_Pin(uinteg8_t pin, uinteg8_t direction)
 {
-	uint8_t por;
+	uinteg8_t por;
 
 	if(pin>=PinsNeeded || pin>=No_of_pins ) return DIO_ERROR_NOK;
     else
@@ -231,7 +231,7 @@ uint8_t DIO_Init_Pin(uint8_t pin, uint8_t direction)
 	por='A'+pin/PortSize;
 	pin=pin%PortSize;
 	}
-	
+
     switch(por)
     {
     case 'A': if(direction==0){CLR_BIT(DirectionRegisterA,pin);}else{SET_BIT(DirectionRegisterA,pin);}
@@ -244,8 +244,9 @@ uint8_t DIO_Init_Pin(uint8_t pin, uint8_t direction)
               break;
 
     case 'D': if(direction==0){CLR_BIT(DirectionRegisterD,pin);}else{SET_BIT(DirectionRegisterD,pin);}
+			  break;		
 #if ATMEGA == 128		
-			  break;
+
 	case 'E': if(direction==0){CLR_BIT(DDRE,pin);}else{SET_BIT(DDRE,pin);}
 			  break;
 	case 'F': if(direction==0){CLR_BIT(DDRF,pin);}else{SET_BIT(DDRF,pin);}
@@ -257,14 +258,15 @@ uint8_t DIO_Init_Pin(uint8_t pin, uint8_t direction)
 	return DIO_ERROR_NOK;
 	break;
 	}
+	
 return DIO_ERROR_OK;
 }
-uint8_t DIO_Init(gstrDioConfig_t* pstr_DioConfig)
+uinteg8_t DIO_Init(gstrDioConfig_t* pstr_DioConfig)
 {
 	DIO_Init_Pin(pstr_DioConfig->Pin_Number,pstr_DioConfig->Pin_Direction);
 	return 0;
 }
-uint8_t DIO_Read_Port (uint8_t por, uint8_t * ReadData)
+uinteg8_t DIO_Read_Port (uinteg8_t por, uinteg8_t * ReadData)
 {
     switch(por)
     {
@@ -297,7 +299,7 @@ uint8_t DIO_Read_Port (uint8_t por, uint8_t * ReadData)
     }
 	return DIO_ERROR_OK;
 }
-uint8_t DIO_Write_Port(uint8_t por,uint8_t Data)
+uinteg8_t DIO_Write_Port(uinteg8_t por,uinteg8_t Data)
 {
     switch(por)
     {
@@ -328,9 +330,9 @@ uint8_t DIO_Write_Port(uint8_t por,uint8_t Data)
 	}
 return DIO_ERROR_OK;
 }
-uint8_t DIO_Read_Pin (uint8_t pin, uint8_t * ReadData)
+uinteg8_t DIO_Read_Pin (uinteg8_t pin, uinteg8_t * ReadData)
 {
-	uint8_t por;
+	uinteg8_t por;
 	if(pin>=PinsNeeded || pin>=No_of_pins ) return DIO_ERROR_NOK;
 	else
 	{
@@ -368,9 +370,9 @@ uint8_t DIO_Read_Pin (uint8_t pin, uint8_t * ReadData)
 	}
 return DIO_ERROR_OK;
 }
-uint8_t DIO_Write_Pin(uint8_t pin,uint8_t BitValue)
+uinteg8_t DIO_Write_Pin(uinteg8_t pin,uinteg8_t BitValue)
 {
-	uint8_t por;
+	uinteg8_t por;
  	if(pin>=PinsNeeded || pin>=No_of_pins ) return DIO_ERROR_NOK;
  	else
  	{
@@ -410,7 +412,7 @@ uint8_t DIO_Write_Pin(uint8_t pin,uint8_t BitValue)
 	}
 	return DIO_ERROR_OK;
 }
-uint8_t DIO_toggle_Port(uint8_t por)
+uinteg8_t DIO_toggle_Port(uinteg8_t por)
 {
 	switch(por)
 	{
@@ -436,9 +438,9 @@ uint8_t DIO_toggle_Port(uint8_t por)
 		}
 return DIO_ERROR_OK;
 }
-uint8_t DIO_toggle_Pin(uint8_t pin)
+uinteg8_t DIO_toggle_Pin(uinteg8_t pin)
 {
-	uint8_t por;
+	uinteg8_t por;
 	if(pin>=PinsNeeded || pin>=No_of_pins ) return DIO_ERROR_NOK;
 	else
 	{
@@ -471,7 +473,7 @@ uint8_t DIO_toggle_Pin(uint8_t pin)
 	}
 	return DIO_ERROR_OK;
 }
-uint8_t DIO_Read_Nibble(uint8_t por,uint8_t nibble,uint8_t shifted_left_or_not,uint8_t * ReadData)
+uinteg8_t DIO_Read_Nibble(uinteg8_t por,uinteg8_t nibble,uinteg8_t shifted_left_or_not,uinteg8_t * ReadData)
 {
 	switch(por)
 	{
@@ -654,7 +656,7 @@ uint8_t DIO_Read_Nibble(uint8_t por,uint8_t nibble,uint8_t shifted_left_or_not,u
 	return DIO_ERROR_OK;
 }
 
-uint8_t DIO_Write_Nibble(uint8_t por ,uint8_t lower_or_higher_nibble,uint8_t data)
+uinteg8_t DIO_Write_Nibble(uinteg8_t por ,uinteg8_t lower_or_higher_nibble,uinteg8_t data)
 {
 	switch(por)
 	{

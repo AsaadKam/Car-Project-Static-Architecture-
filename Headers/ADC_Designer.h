@@ -21,7 +21,7 @@
 /*                  Error data type                        */
 /***********************************************************/
 
-typedef uint8_t ADC_Error_t;
+typedef uinteg8_t ADC_Error_t;
 
 /*- FUNCTION-LIKE MACROS -----------------------------------*/
 

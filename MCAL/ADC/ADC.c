@@ -14,8 +14,8 @@
 /*- GLOBAL STATIC VARIABLES -------------------------------*/
 static ADC_Error_t sgADC_Error_ADC_INIT_API=ADC_INIT_API_NO_ERROR;
 static ADC_Error_t sgADC_Error_ADC_READ_API=ADC_READ_API_NO_ERROR;
-static uint8_t sgu8_ADC_Execution_Way=0;
-static uint8_t sgu8_ADC_Left_Adjust_Enabled_Flag=0;
+static uinteg8_t sgu8_ADC_Execution_Way=0;
+static uinteg8_t sgu8_ADC_Left_Adjust_Enabled_Flag=0;
 static volatile PntrToFunc_t sgPntrToFun_ADC_ISR=NullPointer;
 /*- GLOBAL EXTERN VARIABLES -------------------------------*/
 /*- LOCAL FUNCTIONS PROTOTYPES ----------------------------*/
@@ -131,12 +131,12 @@ ADC_Error_t ADC_INIT(gstrADC_Config_t*CopyPntrStr_ADC_Init_Config)
 		 return  sgADC_Error_ADC_INIT_API;     
  }
  
-ADC_Error_t ADC_READ(uint32_t* Copyu32_ADC_Value,PntrToFunc_t Copy_PntrToFunc_Requsted_From_User_Called_In_ADC_ISR,uint8_t* Copy_Pntr_u8_ADC_READ_TIME_EVENT_FLAG)
+ADC_Error_t ADC_READ(uinteg32_t* Copyu32_ADC_Value,PntrToFunc_t Copy_PntrToFunc_Requsted_From_User_Called_In_ADC_ISR,uinteg8_t* Copy_Pntr_u8_ADC_READ_TIME_EVENT_FLAG)
  {
 
      int Ain,AinLow;
-     static uint8_t Event_Driven_1st_time=1;
-	 static uint8_t sgu8_ADC_READ_STATE=0;
+     static uinteg8_t Event_Driven_1st_time=1;
+	 static uinteg8_t sgu8_ADC_READ_STATE=0;
 
      /*Check that there is no error occur while initialization*/	 
 	 if(sgADC_Error_ADC_INIT_API==ADC_INIT_API_NO_ERROR)
@@ -155,12 +155,12 @@ ADC_Error_t ADC_READ(uint32_t* Copyu32_ADC_Value,PntrToFunc_t Copy_PntrToFunc_Re
              /**Check If the data is left adjusted or right**/ 			 
 			 if(sgu8_ADC_Left_Adjust_Enabled_Flag==ADC_Left_Adjustment)
 			 {				
-				  *Copyu32_ADC_Value=((uint32_t)(ADC_DATA_HIGH_REG<<2))|(uint8_t)(ADC_DATA_LOW_REG>>6);
+				  *Copyu32_ADC_Value=((uinteg32_t)(ADC_DATA_HIGH_REG<<2))|(uinteg8_t)(ADC_DATA_LOW_REG>>6);
 			 }
 			 else
 			 {
-					AinLow = (uint32_t)ADC_DATA_LOW_REG;		/* Read lower byte*/
-					Ain = (uint32_t)(ADC_DATA_HIGH_REG<<8);		/* Read higher 2 bits and*/
+					AinLow = (uinteg32_t)ADC_DATA_LOW_REG;		/* Read lower byte*/
+					Ain = (uinteg32_t)(ADC_DATA_HIGH_REG<<8);		/* Read higher 2 bits and*/
 					*Copyu32_ADC_Value=Ain|AinLow ;
 			 }
 		 }
@@ -186,12 +186,12 @@ ADC_Error_t ADC_READ(uint32_t* Copyu32_ADC_Value,PntrToFunc_t Copy_PntrToFunc_Re
 				if(sgu8_ADC_Left_Adjust_Enabled_Flag==ADC_Left_Adjustment)
 				{
 						             
-					*Copyu32_ADC_Value=((uint32_t)(ADC_DATA_HIGH_REG<<2))|(uint8_t)(ADC_DATA_LOW_REG>>6);
+					*Copyu32_ADC_Value=((uinteg32_t)(ADC_DATA_HIGH_REG<<2))|(uinteg8_t)(ADC_DATA_LOW_REG>>6);
 				}
 				else
 				{
-					AinLow = (uint32_t)ADC_DATA_LOW_REG;		/* Read lower byte*/
-					Ain = (uint32_t)(ADC_DATA_HIGH_REG<<8);		/* Read higher 2 bits and*/
+					AinLow = (uinteg32_t)ADC_DATA_LOW_REG;		/* Read lower byte*/
+					Ain = (uinteg32_t)(ADC_DATA_HIGH_REG<<8);		/* Read higher 2 bits and*/
 					*Copyu32_ADC_Value=Ain|AinLow ;
 				}
 			 }
@@ -215,12 +215,12 @@ ADC_Error_t ADC_READ(uint32_t* Copyu32_ADC_Value,PntrToFunc_t Copy_PntrToFunc_Re
                       		if(sgu8_ADC_Left_Adjust_Enabled_Flag==ADC_Left_Adjustment)
                       		{
 	                      					
-	                      		*Copyu32_ADC_Value=((uint32_t)(ADC_DATA_HIGH_REG<<2))|(uint8_t)(ADC_DATA_LOW_REG>>6);
+	                      		*Copyu32_ADC_Value=((uinteg32_t)(ADC_DATA_HIGH_REG<<2))|(uinteg8_t)(ADC_DATA_LOW_REG>>6);
                       		}
                       		else
                       		{
-								AinLow = (uint32_t)ADC_DATA_LOW_REG;		/* Read lower byte*/
-								Ain = (uint32_t)(ADC_DATA_HIGH_REG<<8);		/* Read higher 2 bits and*/
+								AinLow = (uinteg32_t)ADC_DATA_LOW_REG;		/* Read lower byte*/
+								Ain = (uinteg32_t)(ADC_DATA_HIGH_REG<<8);		/* Read higher 2 bits and*/
 							   *Copyu32_ADC_Value=Ain|AinLow ;	
                       		}			
 							sgu8_ADC_READ_STATE=0;

@@ -18,13 +18,13 @@
 
 typedef struct
 {
-	uint8_t LCD_Method_Of_Execution;
-	uint8_t LCD_TYPE_PARALLEL_COMM;
-	uint8_t LCD_Generate_Cursor;
+	uinteg8_t LCD_Method_Of_Execution;
+	uinteg8_t LCD_TYPE_PARALLEL_COMM;
+	uinteg8_t LCD_Generate_Cursor;
 	
 }gstr_LCD_Config_t;
 
 extern gstr_LCD_Config_t gstr_Temprature_Sensor_LCD ;
-
+extern gstr_LCD_Config_t gstr_CAR_LCD_CONFIG ;
 
 #endif /* LCD_POSTBCONFIG_H_ */
